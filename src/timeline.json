@@ -1,0 +1,596 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "description": "Service JSON complet pour la logique métier du timeline CRVS Mali",
+    "createdDate": "2025-05-15",
+    "lastModified": "2025-05-15"
+  },
+  
+  "processTypes": {
+    "BIRTH": {
+      "id": "BIRTH",
+      "name": "Acte de Naissance",
+      "prefix": "N",
+      "color": "#2196f3",
+      "gradientColors": ["#e3f2fd", "#bbdefb"],
+      "borderColor": "#2196f3"
+    },
+    "MARRIAGE": {
+      "id": "MARRIAGE",
+      "name": "Acte de Mariage",
+      "prefix": "M",
+      "color": "#e91e63",
+      "gradientColors": ["#f8bbd0", "#f48fb1"],
+      "borderColor": "#e91e63"
+    },
+    "DEATH": {
+      "id": "DEATH",
+      "name": "Acte de Décès",
+      "prefix": "D",
+      "color": "#757575",
+      "gradientColors": ["#e1e1e1", "#bdbdbd"],
+      "borderColor": "#757575"
+    }
+  },
+  
+  "stepStatuses": {
+    "NOT_STARTED": {
+      "id": "NOT_STARTED",
+      "label": "Pas commencé",
+      "color": "#bdbdbd",
+      "borderColor": "#9e9e9e",
+      "icon": "",
+      "iconColor": "#ffffff",
+      "description": "L'étape n'a pas encore été initiée"
+    },
+    "IN_PROGRESS": {
+      "id": "IN_PROGRESS",
+      "label": "En cours",
+      "color": "#ff9800",
+      "borderColor": "#f57c00",
+      "icon": "more_horiz",
+      "iconColor": "#ffffff",
+      "description": "L'étape est actuellement en cours d'exécution"
+    },
+    "COMPLETED": {
+      "id": "COMPLETED",
+      "label": "Fait",
+      "color": "#4caf50",
+      "borderColor": "#388e3c",
+      "icon": "check",
+      "iconColor": "#ffffff",
+      "description": "L'étape a été complétée avec succès"
+    },
+    "BLOCKED": {
+      "id": "BLOCKED",
+      "label": "Bloqué",
+      "color": "#f44336",
+      "borderColor": "#d32f2f",
+      "icon": "close",
+      "iconColor": "#ffffff",
+      "description": "L'étape est bloquée et ne peut pas progresser"
+    },
+    "CANCELLED": {
+      "id": "CANCELLED",
+      "label": "Annulé",
+      "color": "#f44336",
+      "borderColor": "#d32f2f",
+      "icon": "close",
+      "iconColor": "#ffffff",
+      "description": "L'étape a été annulée"
+    }
+  },
+  
+  "processStepDefinitions": {
+    "BIRTH": [
+      {
+        "id": "registration",
+        "order": 1,
+        "label": "Enregistrement de naissance",
+        "icon": "app_registration",
+        "description": "Enregistrement initial de la naissance dans le système",
+        "required": true,
+        "canSkip": false
+      },
+      {
+        "id": "declaration",
+        "order": 2,
+        "label": "Déclaration de naissance",
+        "icon": "description",
+        "description": "Déclaration officielle de la naissance",
+        "required": true,
+        "canSkip": false
+      },
+      {
+        "id": "establishment",
+        "order": 3,
+        "label": "Établissement de l'acte",
+        "icon": "gavel",
+        "description": "Établissement officiel de l'acte de naissance",
+        "required": true,
+        "canSkip": false
+      },
+      {
+        "id": "delivery",
+        "order": 4,
+        "label": "Remise de l'acte",
+        "icon": "assignment_turned_in",
+        "description": "Remise de l'acte de naissance aux intéressés",
+        "required": true,
+        "canSkip": false
+      }
+    ],
+    "MARRIAGE": [
+      {
+        "id": "declaration",
+        "order": 1,
+        "label": "Déclaration de mariage",
+        "icon": "favorite",
+        "description": "Déclaration d'intention de mariage",
+        "required": true,
+        "canSkip": false
+      },
+      {
+        "id": "publication",
+        "order": 2,
+        "label": "Publication de mariage",
+        "icon": "campaign",
+        "description": "Publication des bans de mariage",
+        "required": true,
+        "canSkip": false
+      },
+      {
+        "id": "investigation",
+        "order": 3,
+        "label": "Enquêtes prénuptiales",
+        "icon": "find_in_page",
+        "description": "Enquêtes et vérifications prénuptiales",
+        "required": true,
+        "canSkip": false
+      },
+      {
+        "id": "celebration_and_delivery",
+        "order": 4,
+        "label": "Célébration et Remise de l'acte",
+        "icon": "celebration",
+        "description": "Célébration du mariage et remise de l'acte",
+        "required": true,
+        "canSkip": false
+      }
+    ],
+    "DEATH": [
+      {
+        "id": "certificate",
+        "order": 1,
+        "label": "Certificat de décès",
+        "icon": "medical_services",
+        "description": "Établissement du certificat médical de décès",
+        "required": true,
+        "canSkip": false
+      },
+      {
+        "id": "declaration",
+        "order": 2,
+        "label": "Déclaration de décès",
+        "icon": "description",
+        "description": "Déclaration officielle du décès",
+        "required": true,
+        "canSkip": false
+      },
+      {
+        "id": "establishment",
+        "order": 3,
+        "label": "Établissement de l'acte",
+        "icon": "gavel",
+        "description": "Établissement officiel de l'acte de décès",
+        "required": true,
+        "canSkip": false
+      },
+      {
+        "id": "delivery",
+        "order": 4,
+        "label": "Remise de l'acte",
+        "icon": "assignment_turned_in",
+        "description": "Remise de l'acte de décès aux intéressés",
+        "required": true,
+        "canSkip": false
+      }
+    ]
+  },
+  
+  "businessRules": {
+    "statusTransitions": {
+      "sequential": {
+        "description": "Les étapes doivent être complétées dans l'ordre séquentiel",
+        "rule": "Une étape ne peut être complétée que si toutes les étapes précédentes sont complétées"
+      },
+      "stateTransitions": {
+        "NOT_STARTED": {
+          "allowedNext": ["IN_PROGRESS", "COMPLETED", "BLOCKED", "CANCELLED"],
+          "description": "Une étape non commencée peut passer à n'importe quel autre état"
+        },
+        "IN_PROGRESS": {
+          "allowedNext": ["COMPLETED", "BLOCKED", "CANCELLED"],
+          "description": "Une étape en cours peut être complétée, bloquée ou annulée"
+        },
+        "COMPLETED": {
+          "allowedNext": ["IN_PROGRESS", "BLOCKED", "CANCELLED"],
+          "description": "Une étape complétée peut être remise en cours, bloquée ou annulée"
+        },
+        "BLOCKED": {
+          "allowedNext": ["IN_PROGRESS", "CANCELLED", "NOT_STARTED"],
+          "description": "Une étape bloquée peut être remise en cours, annulée ou remise à zéro"
+        },
+        "CANCELLED": {
+          "allowedNext": ["NOT_STARTED", "IN_PROGRESS"],
+          "description": "Une étape annulée peut être remise à zéro ou en cours"
+        }
+      }
+    },
+    "cascadeRules": {
+      "onCompletion": {
+        "description": "Quand une étape est complétée, toutes les étapes suivantes deviennent 'En cours'",
+        "action": "SET_SUBSEQUENT_TO_IN_PROGRESS"
+      },
+      "onBlocked": {
+        "description": "Quand une étape est bloquée, toutes les étapes suivantes deviennent 'Bloquées'",
+        "action": "SET_SUBSEQUENT_TO_BLOCKED"
+      },
+      "onCancelled": {
+        "description": "Quand une étape est annulée, toutes les étapes suivantes deviennent 'Bloquées'",
+        "action": "SET_SUBSEQUENT_TO_BLOCKED"
+      },
+      "onInProgress": {
+        "description": "Quand une étape est en cours, les étapes suivantes non complétées deviennent 'Pas commencé'",
+        "action": "SET_SUBSEQUENT_NOT_COMPLETED_TO_NOT_STARTED"
+      },
+      "onNotStarted": {
+        "description": "Quand une étape redevient non commencée, toutes les étapes suivantes deviennent 'Pas commencé'",
+        "action": "SET_SUBSEQUENT_TO_NOT_STARTED"
+      }
+    },
+    "timelineVisualization": {
+      "lineColors": {
+        "COMPLETED": {
+          "color": "#4caf50",
+          "description": "La ligne après une étape complétée est verte"
+        },
+        "IN_PROGRESS": {
+          "color": "#ff9800",
+          "description": "La ligne après une étape en cours est orange"
+        },
+        "BLOCKED": {
+          "color": "#f44336",
+          "description": "La ligne après une étape bloquée est rouge"
+        },
+        "CANCELLED": {
+          "color": "#f44336",
+          "description": "La ligne après une étape annulée est rouge"
+        },
+        "NOT_STARTED": {
+          "color": "#bdbdbd",
+          "description": "La ligne après une étape non commencée est grise"
+        }
+      },
+      "lineRules": {
+        "description": "La couleur de la ligne de progression est déterminée par le statut de l'étape précédente",
+        "implementation": "La ligne entre deux jalons prend la couleur correspondant au statut de l'étape de gauche"
+      }
+    }
+  },
+  
+  "apiEndpoints": {
+    "processes": {
+      "getAll": {
+        "method": "GET",
+        "endpoint": "/api/processes",
+        "description": "Récupère tous les processus"
+      },
+      "getById": {
+        "method": "GET",
+        "endpoint": "/api/processes/{id}",
+        "description": "Récupère un processus par son ID"
+      },
+      "getByType": {
+        "method": "GET",
+        "endpoint": "/api/processes/type/{type}",
+        "description": "Récupère tous les processus d'un type donné"
+      },
+      "create": {
+        "method": "POST",
+        "endpoint": "/api/processes",
+        "description": "Crée un nouveau processus"
+      },
+      "update": {
+        "method": "PUT",
+        "endpoint": "/api/processes/{id}",
+        "description": "Met à jour un processus existant"
+      },
+      "delete": {
+        "method": "DELETE",
+        "endpoint": "/api/processes/{id}",
+        "description": "Supprime un processus"
+      }
+    },
+    "steps": {
+      "updateStatus": {
+        "method": "PATCH",
+        "endpoint": "/api/processes/{processId}/steps/{stepId}/status",
+        "description": "Met à jour le statut d'une étape",
+        "payload": {
+          "status": "string",
+          "completionDate": "datetime (optional)"
+        }
+      },
+      "getHistory": {
+        "method": "GET",
+        "endpoint": "/api/processes/{processId}/steps/{stepId}/history",
+        "description": "Récupère l'historique des changements d'une étape"
+      }
+    },
+    "statistics": {
+      "getOverview": {
+        "method": "GET",
+        "endpoint": "/api/statistics/overview",
+        "description": "Récupère les statistiques générales"
+      },
+      "getByType": {
+        "method": "GET",
+        "endpoint": "/api/statistics/type/{type}",
+        "description": "Récupère les statistiques pour un type de processus"
+      }
+    }
+  },
+  
+  "validationRules": {
+    "processValidation": {
+      "requiredFields": ["type", "declarationNumber", "nina", "steps"],
+      "nina": {
+        "length": 15,
+        "pattern": "^[0-9]{15}$",
+        "description": "NINA doit contenir exactement 15 chiffres"
+      },
+      "declarationNumber": {
+        "pattern": "^[NMD]-\\d{4}-\\d{4}$",
+        "description": "Numéro de déclaration au format: préfixe-année-numéro"
+      }
+    },
+    "stepValidation": {
+      "requiredFields": ["id", "order", "label", "icon", "status"],
+      "order": {
+        "min": 1,
+        "unique": true,
+        "description": "L'ordre des étapes doit être unique et commence à 1"
+      },
+      "status": {
+        "allowedValues": ["NOT_STARTED", "IN_PROGRESS", "COMPLETED", "BLOCKED", "CANCELLED"],
+        "description": "Le statut doit être une valeur valide"
+      }
+    },
+    "businessLogicValidation": {
+      "sequentialCompletion": {
+        "description": "Les étapes doivent être complétées dans l'ordre",
+        "rule": "Une étape ne peut être COMPLETED que si toutes les étapes précédentes sont COMPLETED"
+      },
+      "cascadeConsistency": {
+        "description": "Les règles de cascade doivent être respectées",
+        "rule": "Si une étape est BLOCKED, toutes les étapes suivantes doivent être BLOCKED"
+      }
+    }
+  },
+  
+  "sampleData": {
+    "processes": [
+      {
+        "id": "birth-001",
+        "type": "BIRTH",
+        "declarationNumber": "N-2025-0001",
+        "nina": "123456789012345",
+        "steps": [
+          {
+            "id": "b1-001",
+            "order": 1,
+            "label": "Enregistrement de naissance",
+            "icon": "app_registration",
+            "status": "COMPLETED",
+            "completionDate": "2025-04-15T10:30:00Z"
+          },
+          {
+            "id": "b2-001",
+            "order": 2,
+            "label": "Déclaration de naissance",
+            "icon": "description",
+            "status": "COMPLETED",
+            "completionDate": "2025-04-18T14:20:00Z"
+          },
+          {
+            "id": "b3-001",
+            "order": 3,
+            "label": "Établissement de l'acte",
+            "icon": "gavel",
+            "status": "IN_PROGRESS",
+            "completionDate": null
+          },
+          {
+            "id": "b4-001",
+            "order": 4,
+            "label": "Remise de l'acte",
+            "icon": "assignment_turned_in",
+            "status": "NOT_STARTED",
+            "completionDate": null
+          }
+        ],
+        "createdAt": "2025-04-10T09:00:00Z",
+        "updatedAt": "2025-04-18T14:20:00Z"
+      },
+      {
+        "id": "marriage-001",
+        "type": "MARRIAGE",
+        "declarationNumber": "M-2025-0001",
+        "nina": "987654321098765",
+        "steps": [
+          {
+            "id": "m1-001",
+            "order": 1,
+            "label": "Déclaration de mariage",
+            "icon": "favorite",
+            "status": "COMPLETED",
+            "completionDate": "2025-04-10T11:00:00Z"
+          },
+          {
+            "id": "m2-001",
+            "order": 2,
+            "label": "Publication de mariage",
+            "icon": "campaign",
+            "status": "COMPLETED",
+            "completionDate": "2025-04-17T16:30:00Z"
+          },
+          {
+            "id": "m3-001",
+            "order": 3,
+            "label": "Enquêtes prénuptiales",
+            "icon": "find_in_page",
+            "status": "BLOCKED",
+            "completionDate": null
+          },
+          {
+            "id": "m4-001",
+            "order": 4,
+            "label": "Célébration et Remise de l'acte",
+            "icon": "celebration",
+            "status": "BLOCKED",
+            "completionDate": null
+          }
+        ],
+        "createdAt": "2025-04-05T08:30:00Z",
+        "updatedAt": "2025-04-17T16:30:00Z"
+      },
+      {
+        "id": "death-001",
+        "type": "DEATH",
+        "declarationNumber": "D-2025-0001",
+        "nina": "456789012345678",
+        "steps": [
+          {
+            "id": "d1-001",
+            "order": 1,
+            "label": "Certificat de décès",
+            "icon": "medical_services",
+            "status": "COMPLETED",
+            "completionDate": "2025-04-12T13:45:00Z"
+          },
+          {
+            "id": "d2-001",
+            "order": 2,
+            "label": "Déclaration de décès",
+            "icon": "description",
+            "status": "COMPLETED",
+            "completionDate": "2025-04-14T10:15:00Z"
+          },
+          {
+            "id": "d3-001",
+            "order": 3,
+            "label": "Établissement de l'acte",
+            "icon": "gavel",
+            "status": "COMPLETED",
+            "completionDate": "2025-04-20T15:00:00Z"
+          },
+          {
+            "id": "d4-001",
+            "order": 4,
+            "label": "Remise de l'acte",
+            "icon": "assignment_turned_in",
+            "status": "IN_PROGRESS",
+            "completionDate": null
+          }
+        ],
+        "createdAt": "2025-04-10T07:00:00Z",
+        "updatedAt": "2025-04-20T15:00:00Z"
+      }
+    ]
+  },
+  
+  "implementations": {
+    "statusUpdate": {
+      "algorithm": "updateStepStatus",
+      "description": "Algorithme pour mettre à jour le statut d'une étape avec application des règles métier",
+      "steps": [
+        "1. Valider la transition de statut",
+        "2. Mettre à jour le statut de l'étape cible",
+        "3. Gérer la date de complétion",
+        "4. Appliquer les règles de cascade",
+        "5. Valider la cohérence du processus",
+        "6. Persister les changements",
+        "7. Notifier les observateurs"
+      ],
+      "pseudoCode": "if (isValidTransition(currentStatus, newStatus)) { updateStep(stepId, newStatus); applyCascadeRules(process, stepIndex, newStatus); validateProcess(process); persistChanges(process); notifyObservers(process); }"
+    },
+    "cascadeLogic": {
+      "algorithm": "applyCascadeRules",
+      "description": "Logique d'application des règles de cascade aux étapes suivantes",
+      "cases": {
+        "COMPLETED": "toutes les étapes suivantes deviennent IN_PROGRESS",
+        "BLOCKED": "toutes les étapes suivantes deviennent BLOCKED",
+        "CANCELLED": "toutes les étapes suivantes deviennent BLOCKED",
+        "IN_PROGRESS": "les étapes suivantes non complétées deviennent NOT_STARTED",
+        "NOT_STARTED": "toutes les étapes suivantes deviennent NOT_STARTED"
+      }
+    },
+    "visualizationLogic": {
+      "algorithm": "calculateTimelineColors",
+      "description": "Logique de calcul des couleurs de la timeline selon les statuts",
+      "rules": [
+        "La couleur d'un jalon dépend de son statut",
+        "La couleur d'une ligne dépend du statut de l'étape précédente",
+        "Les lignes avant le premier jalon et après le dernier ne sont pas affichées"
+      ]
+    }
+  },
+  
+  "configuration": {
+    "timeline": {
+      "nodeSize": 36,
+      "compactNodeSize": 28,
+      "lineHeight": 4,
+      "spacing": "space-between",
+      "animationDuration": 300
+    },
+    "colors": {
+      "completed": "#4caf50",
+      "inProgress": "#ff9800",
+      "blocked": "#f44336",
+      "cancelled": "#f44336",
+      "notStarted": "#bdbdbd"
+    },
+    "icons": {
+      "completed": "check",
+      "inProgress": "more_horiz",
+      "blocked": "close",
+      "cancelled": "close",
+      "notStarted": ""
+    }
+  },
+  
+  "errorHandling": {
+    "invalidTransition": {
+      "code": "INVALID_TRANSITION",
+      "message": "Transition de statut non autorisée",
+      "action": "Rejeter la modification et retourner l'état précédent"
+    },
+    "processNotFound": {
+      "code": "PROCESS_NOT_FOUND",
+      "message": "Processus non trouvé",
+      "action": "Retourner une erreur 404"
+    },
+    "stepNotFound": {
+      "code": "STEP_NOT_FOUND",
+      "message": "Étape non trouvée",
+      "action": "Retourner une erreur 404"
+    },
+    "validationError": {
+      "code": "VALIDATION_ERROR",
+      "message": "Erreur de validation des données",
+      "action": "Retourner les détails de l'erreur"
+    }
+  }
+}

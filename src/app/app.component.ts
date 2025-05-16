@@ -1,4 +1,3 @@
-// src/app/app.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ProcessType } from './models';
 
@@ -9,7 +8,8 @@ import { ProcessType } from './models';
 })
 export class AppComponent implements OnInit {
   title = 'CRVS État du MALI - Suivi des Processus d\'Enregistrement Civil';
-  selectedProcessType: ProcessType = ProcessType.BIRTH; // Par défaut sur Actes de Naissance
+  // selectedProcessType: ProcessType = ProcessType.BIRTH; // Par défaut sur Actes de Naissance
+  selectedProcessType: any; // Par défaut sur Actes de Naissance
 
   // Définir les types de processus pour l'accès dans le template
   processTypes = ProcessType;
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   }
 
   // Méthode pour changer le type de processus sélectionné
-  selectProcessType(type: ProcessType): void {
-    this.selectedProcessType = type;
-  }
+  // selectProcessType(type: ProcessType): void {
+  //   this.selectedProcessType = type;
+  // }
 }

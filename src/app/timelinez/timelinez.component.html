@@ -1,0 +1,70 @@
+<div class="process-banner"  [style.background]="getInfoTypeOfCertificateByStatus('BIRTH')['backgroundColor']"
+    [style.border-left]="getInfoTypeOfCertificateByStatus('BIRTH')['borderLeftColor']">
+    
+    <div class="banner-content" *ngIf="birthDetail">
+        <div class="banner-left">
+            <div class="banner-title">Actes de Naissance</div>
+
+            <div class="banner-info">
+                <div class="info-section declaration-number">
+                    <span class="info-label">N° Déclaration :</span>
+                    <span class="info-value">{{ birthDetail.num_dec }}</span>
+                </div>
+
+                <div class="info-section nina-section">
+                    <span class="info-label">NINA :</span>
+                    <div class="nina-container">
+                        <div class="nina-box" *ngFor="let digit of formatNina(birthDetail.num_nina)">
+                            {{ digit }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="banner-right">
+            <div class="timeline-wrapper">
+                <div class="timeline-container">
+                    <div class="timeline">
+                        <!-- Structure de base avec les étapes et jalons fixes -->
+                        <div class="timeline-steps">
+                            <div class="timeline-step" *ngFor="let step of birthDetail.steps; let i = index; let isLast = last">
+                                <!-- Contenu au-dessus du jalon (icône + libellé) -->
+                                <div class="step-content">
+                                    <div class="step-header">
+                                        <div class="step-icon">
+                                            <mat-icon>{{ step.icon }}</mat-icon>
+                                        </div>
+                                        <div class="step-label">{{ step.label }}</div>
+                                    </div>
+                                </div>
+
+                                <!-- Barre de progression -->
+                                <div *ngIf="!isLast" class="step-connection-line" [ngClass]="getConnectionLineClass(birthDetail.steps, i)"></div>
+
+                                <!-- Jalon (sans interaction) -->
+                                <div class="step-node-container">
+                                    <div class="step-node" [ngClass]="getStepNodeClassMap(step)"
+                                        [style.background-color]="getInfoActeByStatus(step.statut)['color']"
+                                        [style.border-color]="getInfoActeByStatus(step.statut)['borderColor']">
+                                        <mat-icon *ngIf="step.statut !== 'NOT_STARTED'" class="step-status-icon">
+                                            {{ getInfoActeByStatus(step.statut)['icon']}}
+                                        </mat-icon>
+                                    </div>
+
+                                    <!-- Date (sous le jalon) -->
+                                    <div *ngIf="step.completionDate" class="step-date">
+                                        {{ step.completionDate | date:'dd/MM/yyyy' }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+
+            </div>
+        </div>
+    </div>
+</div>

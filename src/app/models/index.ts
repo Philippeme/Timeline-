@@ -5,7 +5,7 @@ export enum ProcessType {
     DEATH = 'DEATH'
 }
 
-// Énumération des états d'étape (suppression du statut BLOCKED)
+// Énumération des états d'étape 
 export enum StepStatus {
     NOT_STARTED = 'NOT_STARTED',
     IN_PROGRESS = 'IN_PROGRESS',

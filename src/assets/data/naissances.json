@@ -1,0 +1,63 @@
+{
+    "num_dec" : "ANUUIRR123234",
+    "num_nina" : "11224343434353M",
+    "steps": [
+      {
+          "id": "enregistrement",
+          "code": "ENREGISTREMENT_NAISSANCE",
+          "order": 1,
+          "label": "Enregistrement de naissance",
+          "shortLabel": "Enregistrement",
+          "icon": "app_registration",
+          "description": "Enregistrement initial de la naissance dans le système",
+          "isRequired": true,
+          "canSkip": false,
+          "statut": "COMPLETED",
+          "estimatedDuration": "1-2 jours",
+          "completionDate": "2025-05-15"
+      },
+      {
+          "id": "declaration",
+          "code": "DECLARATION_NAISSANCE",
+          "order": 2,
+          "label": "Déclaration de naissance",
+          "shortLabel": "Déclaration",
+          "icon": "description",
+          "description": "Déclaration officielle de la naissance",
+          "isRequired": true,
+          "canSkip": false,
+          "statut": "COMPLETED",
+          "estimatedDuration": "2-3 jours",
+          "completionDate": "2025-05-15"
+      },
+      {
+          "id": "etablissement",
+          "code": "ETABLISSEMENT_ACTE_NAISSANCE",
+          "order": 3,
+          "label": "Établissement de l'acte",
+          "shortLabel": "Établissement",
+          "icon": "gavel",
+          "description": "Établissement officiel de l'acte de naissance",
+          "isRequired": true,
+          "canSkip": false,          
+          "statut": "IN_PROGRESS",
+          "estimatedDuration": "3-5 jours",
+          "completionDate": "2025-05-15"
+          
+      },
+      {
+          "id": "remise",
+          "code": "REMISE_ACTE_NAISSANCE",
+          "order": 4,
+          "label": "Remise de l'acte",
+          "shortLabel": "Remise",
+          "icon": "assignment_turned_in",
+          "description": "Remise de l'acte de naissance aux intéressés",
+          "isRequired": true,
+          "canSkip": false,
+          "statut": "CANCELLED",
+          "estimatedDuration": "1 jour",
+          "completionDate": "2025-05-15"
+      }
+    ]
+}

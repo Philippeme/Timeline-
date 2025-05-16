@@ -21,13 +21,16 @@ import { AppComponent } from './app.component';
 import { ProcessDisplayComponent } from './components/process-display/process-display.component';
 import { ProcessBannerComponent } from './components/process-banner/process-banner.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
+import { TimelinezComponent } from './timelinez/timelinez.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProcessDisplayComponent,
     ProcessBannerComponent,
-    TimelineComponent
+    TimelineComponent,
+    TimelinezComponent
 
   ],
   imports: [
@@ -45,7 +48,8 @@ import { TimelineComponent } from './components/timeline/timeline.component';
     MatDialogModule,
     MatDividerModule,
     MatProgressSpinnerModule,
-    MatInputModule
+    MatInputModule,
+    AppRoutingModule 
   ],
   providers: [],
   bootstrap: [AppComponent]
